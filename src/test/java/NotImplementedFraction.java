@@ -19,9 +19,7 @@ public class NotImplementedFraction implements IFraction{
     }
 
     @Override
-    public IFraction plus(IFraction other) {
-        throw new UnsupportedOperationException();
-    }
+    public IFraction plus(IFraction other) { throw new UnsupportedOperationException(); }
 
     @Override
     public IFraction minus(IFraction other) {

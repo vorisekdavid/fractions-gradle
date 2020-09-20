@@ -22,26 +22,54 @@ public class Fraction implements IFraction {
 
     @Override
     public IFraction plus(IFraction other) {
-        throw new UnsupportedOperationException();
+        int lcm = lcm(getDenominator(), other.getDenominator());
+        int n1 = lcm / denominator * numerator;
+        int n2 = lcm / other.getDenominator() * other.getNumerator();
+
+        return createNormalised(n1 + n2, lcm);
     }
 
     @Override
     public IFraction minus(IFraction other) {
-        throw new UnsupportedOperationException();
+        int lcm = lcm(getDenominator(), other.getDenominator());
+        int n1 = lcm / denominator * numerator;
+        int n2 = lcm / other.getDenominator() * other.getNumerator();
+
+        return createNormalised(n1 - n2, lcm);
     }
 
     @Override
     public IFraction times(IFraction other) {
-        throw new UnsupportedOperationException();
+        int timesNumerator = numerator * other.getNumerator();
+        int timesDenominator = denominator * other.getDenominator();
+
+        return createNormalised(timesNumerator, timesDenominator);
     }
 
     @Override
     public IFraction dividedBy(IFraction other) {
-        throw new UnsupportedOperationException();
+        int timesNumerator = numerator * other.getDenominator();
+        int timesDenominator = denominator * other.getNumerator();
+
+        return createNormalised(timesNumerator, timesDenominator);
     }
 
-    public static Fraction createNormalised(Integer numerator, Integer denominator) {
-        throw new UnsupportedOperationException();
+
+    private static Fraction createNormalised(int numerator, int denominator) {
+        int gcd = gcd(numerator, denominator);
+        return new Fraction(numerator / gcd, denominator / gcd);
+    }
+
+    private static Integer gcd(Integer i1, Integer i2) {
+        return i2 == 0 ? i1 : gcd(i2, i1 % i2);
+    }
+
+    private static Integer lcm(Integer i1, Integer i2) {
+        if (i1 == 0 || i2 == 0) return 0;
+        else {
+            int gcd = gcd(i1, i2);
+            return Math.abs(i1 * i2) / gcd;
+        }
     }
 
     @Override
